@@ -61,8 +61,8 @@ namespace LibrarySysWeb.Controllers
             {
                 Readers = readeroflist.ToList()
             };
-            return View(readerVM);
-
+            //return View(readerVM);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

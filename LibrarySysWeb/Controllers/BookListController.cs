@@ -47,12 +47,12 @@ namespace LibrarySysWeb.Controllers
                 BookBs = bookoflist.ToList()
             };
 
-            
-            //bookVM.AddBook(titlebook,authorbook);
-            
-            
 
-            return View(bookVM);
+            //bookVM.AddBook(titlebook,authorbook);
+
+
+            return RedirectToAction(nameof(Index));
+            
 
         }
 
@@ -73,7 +73,40 @@ namespace LibrarySysWeb.Controllers
                 BookBs = bookoflist.ToList()
             };
 
-            return View(bookVM);
+            //return View(bookVM
+            return RedirectToAction(nameof(Index));
+        }
+
+        //GET: /Rent book/
+
+        public IActionResult RentBook (int idofbook, int idofreader)
+        {
+            var newbook = (from BookB item in _context.BookB
+                           where item.BookBID == idofbook
+                           select item).FirstOrDefault();
+            var newreader = (from Reader n in _context.Reader
+                             where n.ReaderID == idofreader
+                             select n).FirstOrDefault();
+            newbook.RentedbyReader = newreader.ReaderID;
+            newbook.Rented = true;
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        //GET: /Drop off/
+
+        public IActionResult DropOff (int id)
+        {
+            var newbook = (from BookB item in _context.BookB
+                           where item.BookBID == id
+                           select item).FirstOrDefault();
+
+            newbook.RentedbyReader = 0;
+            newbook.Rented = false;
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
