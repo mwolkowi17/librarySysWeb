@@ -64,5 +64,23 @@ namespace LibrarySysWeb.Controllers
             //return View(readerVM);
             return RedirectToAction(nameof(Index));
         }
+
+        //GET: /Select user/
+
+        public IActionResult Select(int id)
+        {
+            var newuser = (from Reader item in _context.Reader
+                           where item.ReaderID == id
+                           select item).FirstOrDefault();
+
+            var bookoflist = from n in _context.BookB
+                             where n.RentedbyReader == newuser.ReaderID
+                             select n;
+            var bookVM = new LibraryViewModel
+            {
+                BookBs = bookoflist.ToList()
+            };
+            return View(bookVM);
+        }
     }
 }

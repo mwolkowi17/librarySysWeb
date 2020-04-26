@@ -37,6 +37,9 @@
                 @Html.DisplayFor(modelItem => item.Surname)
             </td>
             <td>
+                <a asp-action="Select" asp-route-id="@item.ReaderID">Wyświetl wypożyczone</a>
+            </td>
+            <td>
                 <a asp-action="Delete" asp-route-id="@item.ReaderID">Usuń</a>
             </td>
 

@@ -1,0 +1,64 @@
+﻿@model LibrarySysWeb.Models.LibraryViewModel
+
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+<h1>Rented Books by User</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nr kat
+                <!-- @Html.DisplayNameFor(model => model.BookBs[0].BookBID)-->
+            </th>
+            <th>
+                Tytuł
+                <!-- @Html.DisplayNameFor(model => model.BookBs[0].TitleB)-->
+            </th>
+            <th>
+                Autor
+                <!-- @Html.DisplayNameFor(model => model.BookBs[0].AuthorB)-->
+            </th>
+            <th>
+                Status wypożyczenia
+            </th>
+            <th>
+                Wypożyczający
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.BookBs)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookBID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TitleB)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AuthorB)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rented)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RentedbyReader)
+                </td>
+                <td>
+                    <a asp-action="DropOff" asp-route-id="@item.BookBID">Zwróć</a>
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.BookBID">Usuń</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<hr />
+
